@@ -17,7 +17,7 @@ There is a more abstract (functional) alternative for shared memory parallelism 
 
 Specifically, it provides a parallel iterator on which various operations (same as in the sequential domain) can be performed one after the other, forming a pipeline. Internally,
 \begin{itemize}
-    \item This iterator is split recursively into two halves until the binary tree (of splits) reaches a specific depth.
+    \item This iterator is split recursively into two halves until the balanced binary tree (of splits) reaches a specific depth.
     \item Each split is a task that is pushed on the stack.
     \item In case there are any idle threads, they steal a task from this stack.
     \item The stealer continues the above procedure, with the depth measure reset to 1.
@@ -33,28 +33,27 @@ fn main() {
 }
 \end{verbatim}
 %----------------------------------------------------------------------------------------
-%[TODO] Make this a new chapter
-\section{An alternative to Rayon}
-In the context of high performance computing, the abstraction provided by Rayon currently comes at a high cost of task creation overhead. This is because the heuristic for splitting is far from perfect. As described in the previous section, Rayon splits tasks only till a specific depth is reached. This also implies that if the depth has been reached by all threads, but there is somehow an idle thread in the system, there would be no task splitting and hence that thread would remain idle forever.
-
-Furthermore, this problem compounds in the case of nested parallel iterators, wherein Rayon would not differentiate between the tasks created by these levels. It would hence push these on a common stack for a thread. A steal operation would therefore retrieve a task from the lowermost hierarchy while there exist tasks at a higher hierarchy.
-
-In conclusion, the programmer would hence pay for an extremely high task creation overhead, while the load distribution would be more skewed towards the threads that started first.
-
-This motivates the design and implementation of an Adaptive API developed in-house at INRIA.
-
-\subsection{The adaptive task splitting algorithm}
-
-If you are new to \LaTeX{}, there is a very good eBook -- freely available online as a PDF file -- called, ``The Not So Short Introduction to \LaTeX{}''. The book's title is typically shortened to just ``lshort''. You can download the latest version (as it is occasionally updated) from here:\\
-\href{http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}{\texttt{http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}}
-
-It is also available in several other languages. Find yours from the list on this page:\\
-\href{http://www.ctan.org/tex-archive/info/lshort/}{\texttt{http://www.ctan.org/tex-archive/info/lshort/}}
-
-It is recommended to take a little time out to learn how to use \LaTeX{} by creating several, small `test' documents. Making the effort now means you're not stuck learning the system when what you \emph{really} need to be doing is writing your thesis.
-
-\subsection{Handling nested parallelism}
-
-If you are writing a technical or mathematical thesis, then you may want to read the document by the AMS (American Mathematical Society) called, ``A Short Math Guide for \LaTeX{}''. It can be found online here:\\
-\href{http://www.ams.org/tex/amslatex.html}{\texttt{http://www.ams.org/tex/amslatex.html}}\\
-under the ``Additional Documentation'' section towards the bottom of the page.
+%\section{An alternative to Rayon}
+%In the context of high performance computing, the abstraction provided by Rayon currently comes at a high cost of task creation overhead. This is because the heuristic for splitting is far from perfect. As described in the previous section, Rayon splits tasks only till a specific depth is reached. This also implies that if the depth has been reached by all threads, but there is somehow an idle thread in the system, there would be no task splitting and hence that thread would remain idle forever.
+%
+%Furthermore, this problem compounds in the case of nested parallel iterators, wherein Rayon would not differentiate between the tasks created by these levels. It would hence push these on a common stack for a thread. A steal operation would therefore retrieve a task from the lowermost hierarchy while there exist tasks at a higher hierarchy.
+%
+%In conclusion, the programmer would hence pay for an extremely high task creation overhead, while the load distribution would be more skewed towards the threads that started first.
+%
+%This motivates the design and implementation of an Adaptive API developed in-house at INRIA.
+%
+%\subsection{The adaptive task splitting algorithm}
+%
+%If you are new to \LaTeX{}, there is a very good eBook -- freely available online as a PDF file -- called, ``The Not So Short Introduction to \LaTeX{}''. The book's title is typically shortened to just ``lshort''. You can download the latest version (as it is occasionally updated) from here:\\
+%\href{http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}{\texttt{http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf}}
+%
+%It is also available in several other languages. Find yours from the list on this page:\\
+%\href{http://www.ctan.org/tex-archive/info/lshort/}{\texttt{http://www.ctan.org/tex-archive/info/lshort/}}
+%
+%It is recommended to take a little time out to learn how to use \LaTeX{} by creating several, small `test' documents. Making the effort now means you're not stuck learning the system when what you \emph{really} need to be doing is writing your thesis.
+%
+%\subsection{Handling nested parallelism}
+%
+%If you are writing a technical or mathematical thesis, then you may want to read the document by the AMS (American Mathematical Society) called, ``A Short Math Guide for \LaTeX{}''. It can be found online here:\\
+%\href{http://www.ams.org/tex/amslatex.html}{\texttt{http://www.ams.org/tex/amslatex.html}}\\
+%under the ``Additional Documentation'' section towards the bottom of the page.
