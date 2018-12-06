@@ -32,21 +32,23 @@ The intermediate state of this parallel fold has to be a collection of adjacency
             \item Converting this \texttt{LinkedList<Vec<Point>>} into a sequential iterator over \texttt{Vec<Point>} and then \texttt{collect()}-ing the iterator into a single \texttt{Vec<Vec<Point>>}.
         \end{enumerate}
 \end{itemize}
-The former algorithm is named \emph{Rayon Parallel} and the latter is named \emph{Rayon Parallel Opt} in the speedup curve \ref{fig:speedups}
 
+A better performance is expected in the first case because the \texttt{LinkedList} formed in \texttt{Step 3} contains \texttt{Vec<Vec<Point>>}, which are fewer in number as compared to the number of \texttt{Vec<Point>} that the \texttt{LinkedList<Vec<Point>>} contains in the second method. Hence the last step of a sequential iterator would consume less time in the first method and so the algorithm remains more parallel.
+
+
+The former algorithm is named \emph{"Rayon Parallel"} and the latter is (optimistically!) named \emph{"Rayon Parallel Opt"} in the speedup curve \ref{fig:speedups}.
 \section{Parallelization using Adaptive API}
 Since the interface exported by the Adaptive API is identical to Rayon, the only difference here is to import the Adaptive API instead of Rayon. The approach and the implementation remains the same.
 
-%\section{Speedup curves}
+The implementation for this entire system has been open-sourced \href{https://github.com/smr97/insitu\_analytics/tree/master/src}{\texttt{here}}.
+
+\section{Speedup curves}
 \begin{figure}%[opt-rat]
-	%\centering
-    \includegraphics[scale=0.5]{Pictures/speedups.png}
+	\centering
+    \includegraphics[scale=0.6]{Pictures/speedups.png}
 	\rule{40em}{0.5pt}
     \caption[Optimization]{Speedup curves for the various parallel algorithms}
 	\label{fig:speedups}
 \end{figure}
-The speedups were obtained as shown in Figure \ref{fig:speedups}
-
+The speedups were obtained as shown in Figure \ref{fig:speedups}. Here, it is important to note that the Adaptive API is undergoing some changes, hence the \emph{"Adaptive Parallel Opt"} algorithm actually uses the Rayon API for the $3^{rd}$ level of parallelization. Therefore, the speedups are quite similar for the algorithms.
 %----------------------------------------------------------------------------------------
-
-

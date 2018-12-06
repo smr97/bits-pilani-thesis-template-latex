@@ -22,7 +22,7 @@ Specifically, it provides a parallel iterator on which various operations (same 
     \item In case there are any idle threads, they steal a task from this stack.
     \item The stealer continues the above procedure, with the depth measure reset to 1.
 \end{itemize}
-[ADD A RAYON LOG HERE]
+%[ADD A RAYON LOG HERE]
 Below is an example of a code that uses the Rayon API to parallelize the sum of a list of numbers.
 \begin{verbatim}
 extern crate rayon

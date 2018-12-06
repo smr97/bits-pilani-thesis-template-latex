@@ -149,12 +149,23 @@ requirements of \ccode{} \cname{} embodies the work done by him under my
 supervision.\\[2.5cm]
 \begin{minipage}{0.5\textwidth}
     \begin{flushleft} \large
-        \vspace{2cm}
+        \vspace{1cm}
         \rule[0.5em]{13em}{0.5pt}\\
-        \emph{Supervisor}\\
+        \emph{Supervisor} \\
         \supname\\
         \suppos,\\
         \supinst\\
+        Date:\\
+    \end{flushleft}
+\end{minipage}\\[1cm]
+\begin{minipage}{0.5\textwidth}
+    \begin{flushleft} \large
+        \vspace{2cm}
+        \rule[0.5em]{13em}{0.5pt}\\
+        \emph{Supervisor}\\
+        \secsupname\\
+        \secsuppos,\\
+        \secsupinst\\
         Date:\\
     \end{flushleft}
 \end{minipage}
@@ -168,7 +179,7 @@ supervision.\\[2.5cm]
         \cosupinst\\
         Date:\\
     \end{flushleft}
-\end{minipage}\\[3cm]
+\end{minipage}\\[1cm]
     }
 
     \vfil\vfil\null
@@ -296,6 +307,7 @@ supervision.\\[2.5cm]
 \newcommand*{\addresses}[1]{\def\addressnames{#1}}
 \newcommand*{\university}[1]{\def\univname{#1}}
 \newcommand*{\UNIVERSITY}[1]{\def\UNIVNAME{#1}}
+\newcommand*{\secondsupervisor}[1]{\def\secsupname{#1}}
 
 %adding campus option
 \newcommand*{\campus}[1]{\def\campusname{#1}}
@@ -313,6 +325,8 @@ supervision.\\[2.5cm]
 \newcommand*{\cosupervisorinstitute}[1]{\def\cosupinst{#1}}
 \newcommand*{\subject}[1]{\def\subjectname{#1}}
 \newcommand*{\keywords}[1]{\def\keywordnames{#1}}
+\newcommand*{\secondsupervisorposition}[1]{\def\secsuppos{#1}}
+\newcommand*{\secondsupervisorinstitute}[1]{\def\secsupinst{#1}}
 
 
 %-------------------------------------------------------------------------------
@@ -342,7 +356,7 @@ supervision.\\[2.5cm]
 		\textsc{\Large \doctype}\\[0.5cm] % Thesis type
 		
 		\large \textit{Submitted in partial fulfillment of the
-        requirements of\\\ccode{} \cname}\\[1cm] % University requirement text
+        requirements of\\\ccode{} \cname}\\[0.75cm] % University requirement text
         
         \begin{center}
             \emph{By}\\[0.3cm]
@@ -351,6 +365,7 @@ supervision.\\[2.5cm]
             \vspace{1cm}
             \emph{Under the supervision of:} \\[0.3cm]
             \supname \\ % The supervisor's name
+             \secsupname \\
             \& \\
             \cosupname\\[1cm] % The co-supervisor's name
         \end{center}

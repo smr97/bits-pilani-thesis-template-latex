@@ -39,8 +39,15 @@ The copy semantic on the other hand creates a deep copy of the data contained in
 
 
 \subsection{Borrows and lifetimes}
-The former design requires unnecessary moves for situations (for example in case a function intends to read some data, it must be moved in and out). As an alternative, the language offers it's own notion of references. When a reference is created to any variable, it is called a borrow of that variable. Each reference has a lifetime that defines how long the reference is usable. This lifetime can never be more than that of the data referred to. Again, these checks are carried out at compile time. By a way of default, all references are immutable. However, by explicitly obtaining the reference with the \emph{'\&mut'} specifier, it is possible to get a mutable reference. [ADD A FIGURE OF BORROW CHECKER THROWING AN ERROR]
+The former design requires unnecessary moves for situations (for example in case a function intends to read some data, it must be moved in and out). As an alternative, the language offers it's own notion of references. When a reference is created to any variable, it is called a borrow of that variable. Each reference has a lifetime that defines how long the reference is usable. This lifetime can never be more than that of the data referred to. Again, these checks are carried out at compile time. By a way of default, all references are immutable. However, by explicitly obtaining the reference with the \emph{'\&mut'} specifier, it is possible to get a mutable reference. As shown in Figure \ref{fig:borrow_checker}, the compiler throws a compiler time error if an immutable reference and a mutable reference are held on the same object.
 
+\begin{figure}%[opt-rat]
+	%\centering
+    \includegraphics[scale=0.25]{Pictures/borrow_checker.jpg}
+		%\rule{35em}{0.5pt}
+    \caption[Optimization]{The "borrow checker" in the compiler guarding against lost updates.}
+	\label{fig:borrow_checker}
+\end{figure}
 Furthermore, the compiler imposes a check to ensure that the lifetimes of two mutable references, (or that of one mutable reference with an immutable reference) do(es) not overlap.
 
 \subsection{Generic types and traits}

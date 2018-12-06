@@ -35,6 +35,7 @@
 
 \usepackage[backend=bibtex]{biblatex}
 \bibliography{Bibliography.bib}
+\usepackage{pdfpages}
 
 \title{\ttitle} % Defines the thesis title - don't touch this
 
@@ -64,12 +65,15 @@
 %\Quotation{Insert random Quote here. Publish like a boss.}{Your Name}
 
 \begin{abstract}
-\ldots
+The objective of this thesis is two-fold. The first and foremost facet is to provide a fast, scalable and safe solution for in-situ analytics for the data produced by large scale molecular simulations. This aligns closely with the overall research theme of the \emph{Team DATAMOVE}. A simulation models a huge system of particles which evolves over time. Computationally, this evolution is traced over a discrete set of timesteps. While progressing from one timestep to another, it is essential to analyse some domain-specific interactions between particles and hence determine the configuration for the next timestep. In-situ analytics permit the compression of this loop by moving these analytics to the generation of the configuration and process the data as soon as it is generated. This speeds up the entire process by reducing the memory read and write cost.
+
+The secondary objective is to switch over to a new language called Rust which is still in its infancy (having launched in May 2015). Given that the entire Rust ecosystem is open-source, it is quite feasible to modify/add on to the existing setup to suit the specific constraints posed by the above use case. However, given that the language is quite new, several features (for example the support for streams) are still in unstable builds and hence active participation in the community is also essential.
+
+    In summary, this thesis aptly titled as \emph{Hijacking the Rust programming language for high performant in-situ analytics} not only presents novel research and development in high performance computing for big data, but also adds some indispensable features to the promising Rust framework to allow similar research threads to switch over to this futuristic language.
 \end{abstract}
 
 \begin{acknowledgements}
-The acknowledg and the people to thank go here, don't forget to include
-your project advisor\ldots
+    Quite literally none of the work presented here would have been feasible without the support and supervision of Prof. Frederic Wagner. He has singlehandedly developed the Adaptive and Logging APIs being used in this thesis. Several members of the \emph{Datamove} team have also given helpful pointers all along. A special mention here goes to Pedro Buel who has time and again helped in using the R framework for plotting data, and Adrien Faure who has helped debug some poorly written Rust code. Finally, a special thanks to Dr. Bruno Raffin and Prof. Sundar Balasubramaniam for supervising and co-supervising the thesis.
 \end{acknowledgements}
 
 %-------------------------------------------------------------------------------
@@ -164,6 +168,7 @@ your project advisor\ldots
 \input{Chapters/Chapter5}
 \input{Chapters/Chapter6}
 \input{Chapters/Chapter7}
+\input{Chapters/Chapter8}
 
 %-------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
